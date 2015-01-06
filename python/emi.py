@@ -17,11 +17,20 @@ class EmissionAnalyzer:
 		response = urllib2.urlopen(self._url)
 		html = response.read()
 		soup = BeautifulSoup(html)
-		self._emission_title = soup.title.string
+		self._emission_title = soup.find("meta",property="og:title")['content']
+		self._emission_image_url = soup.find("meta",property="og:image")['content']
 		logging.debug(self._emission_title)
+		logging.debug(self._emission_image_url)
+		logging.debug(json.dumps(self))
+		
 
 def main():
-	ana = EmissionAnalyzer(sys.argv[1])
+	if len(sys.argv) > 1:
+		urlToAnalyze = sys.argv[1]
+	else:
+		logging.debug("Utilisation de l'URL de test")
+		urlToAnalyze = "http://www.francemusique.fr/emission/les-lundis-de-la-contemporaine/2014-2015/carte-blanche-peter-eotvos-l-auditorium-de-la-maison-de-la-radio-01-05-2015-20"
+	ana = EmissionAnalyzer(urlToAnalyze)
 	ana.parseUrl()
 
 
