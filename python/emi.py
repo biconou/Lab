@@ -8,20 +8,43 @@ import sys
 
 logging.basicConfig(filename='example.log',level=logging.DEBUG)
 
+class EmissionInfos:
+	title = ""
+	imageUrl = ""
+
 
 class EmissionAnalyzer: 
 	def __init__(self, url):
 		self._url = url
 	def parseUrl(self):
+		infos = EmissionInfos()
 		logging.debug(self._url)
 		response = urllib2.urlopen(self._url)
 		html = response.read()
 		soup = BeautifulSoup(html)
-		self._emission_title = soup.find("meta",property="og:title")['content']
-		self._emission_image_url = soup.find("meta",property="og:image")['content']
-		logging.debug(self._emission_title)
-		logging.debug(self._emission_image_url)
-		logging.debug(json.dumps(self))
+		infos.title = soup.find("meta",property="og:title")['content']
+		infos.imageUrl = soup.find("meta",property="og:image")['content']
+		logging.debug(infos.title)
+		logging.debug(infos.imageUrl)
+		# Telechargement de l'image
+		imageFile = urllib2.urlopen(infos.imageUrl)
+		output = open("Folder.png",'wb')
+		output.write(imageFile.read())
+		output.close()
+		# Telechargement du fichier mp3
+		playerUrl = soup.find("a",class_="jp-play")['href']
+		playerCompleteUrl = "http://www.francemusique.fr" + playerUrl
+		logging.debug(playerCompleteUrl)
+		playerResponse = urllib2.urlopen(playerCompleteUrl)
+		playerHtml = playerResponse.read()
+		playerSoup = BeautifulSoup(playerHtml)
+		mp3Url = playerSoup.find("a",id="player")['href']
+		logging.debug(mp3Url)
+		mp3File = urllib2.urlopen(mp3Url)
+		output = open("emission.mp3",'wb')
+		output.write(mp3File.read())
+		output.close()
+		#logging.debug(json.dumps(infos))
 		
 
 def main():
