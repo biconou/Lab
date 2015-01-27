@@ -1,0 +1,66 @@
+<html><head>
+<script type="text/javascript" src="/script/jquery-1.7.1.min.js"></script>
+
+
+<!-- The noUiSlider script and stylesheet -->
+<!-- Use the files with *.min.* for the minified versions. -->
+<link href="noUiSlider.7.0.2/jquery.nouislider.css" rel="stylesheet">
+
+<!-- Use the 'all' version to get all documented features. -->
+<!-- Includes wNumb, libLink and the pips add-on -->
+<script src="noUiSlider.7.0.2/jquery.nouislider.min.js"></script>
+
+<script type="text/javascript" />
+
+	var time=0;
+	var next=1;
+	
+	function incTime() {
+	    time = time+0.01;	    
+	    $("#slider").val(time);	
+	    if (next==1) {	
+			setTimeout( "incTime();",10 );
+		}
+	}
+	
+	$(document).ready(function () {
+	    //setTimeout( "incTime();",10);
+	});
+	
+	$("#slider-events").on({
+		slide: function(){
+			next=0;
+		},
+		set: function(){
+			//next=1;
+		},
+		change: function(){
+			
+		}
+	});
+	
+</script>
+
+
+</head>
+<body>
+
+
+
+<div id="slider" style="width:30%">
+	<script type="text/javascript" />
+	    $("#slider").noUiSlider({
+		start: [0],
+		connect: "lower",
+		range: {
+			'min': 0,
+			'max': 100
+		}
+		});
+		
+		
+	</script>
+</div>
+
+</body>
+</html>
