@@ -1,2 +1,3 @@
-file_to_ignore.txt
-python/example.log
+/file_to_ignore.txt
+/python/example.log
+/eclipse-workspace
