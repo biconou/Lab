@@ -13,7 +13,6 @@ import html2text
 
 
 
-logging.basicConfig(filename='example.log',level=logging.DEBUG)
 
 class EmissionInfos:
 	emissionUrl = ""
@@ -47,11 +46,11 @@ class EmissionInfos:
 		#output.write(html2text.html2text(htmlEmission.decode('utf8')))
 		#output.close()
 		
-		logging.debug("Telechargement de l'image " + self.imageUrl)	
-		imageFile = urllib2.urlopen(self.imageUrl)
-		output = open(dirName + "/Folder.png",'wb')
-		output.write(imageFile.read())
-		output.close()
+		#logging.debug("Telechargement de l'image " + self.imageUrl)	
+		#imageFile = urllib2.urlopen(self.imageUrl)
+		#output = open(dirName + "/Folder.png",'wb')
+		#output.write(imageFile.read())
+		#output.close()
 
 		logging.debug("Telechargement du mp3 " + self.mp3Url)	
 		mp3Stream = urllib2.urlopen(self.mp3Url)
@@ -71,7 +70,9 @@ class EmissionAnalyzer:
 		html = response.read()
 		soup = BeautifulSoup(html)
 		# Recherche du titre
-		infos.title = soup.find("meta",property="og:title")['content']
+		titleTag = soup.select("div.article h1")[0]
+		infos.title = titleTag.contents[0]
+		#infos.title = "NOT FOUND"
 		logging.debug(infos.title)
 		# Recherche de la datre
 		infos.date = soup.find("span",class_="date-display-single")['content']
@@ -79,7 +80,8 @@ class EmissionAnalyzer:
 		infos.date = re.sub('\-', '', infos.date)
 		logging.debug(infos.date)
 		# Recherche de l'URL de l'image
-		infos.imageUrl = soup.find("meta",property="og:image")['content']		
+		#infos.imageUrl = soup.find("meta",property="og:image")['content']		
+		#infos.imageUrl = soup.find("img",typeof="foaf:image")['src']		
 		logging.debug(infos.imageUrl)
 		# Recherche de l'URL du mp3
 		playerUrl = soup.find("a",class_="jp-play")['href']
@@ -98,13 +100,13 @@ def main():
 	if len(sys.argv) > 1:
 		urlToAnalyze = sys.argv[1]
 	else:
-		logging.debug("Utilisation de l'URL de test")
-		urlToAnalyze = "http://www.francemusique.fr/emission/les-mardis-de-la-musique-ancienne/2014-2015/les-vepres-de-la-vierge-de-monteverdi-par-les-ensembles-oltromontano-et"
+		urlToAnalyze = raw_input("URL de l'emission : ")
+	os.remove('example.log')
+	logging.basicConfig(filename='example.log',level=logging.DEBUG)
 	ana = EmissionAnalyzer(urlToAnalyze)
 	infosEmissions = ana.parseUrl()	
 	infosEmissions.download()
 
 
-#http://www.francemusique.fr/emission/les-lundis-de-la-contemporaine/2014-2015/carte-blanche-peter-eotvos-l-auditorium-de-la-maison-de-la-radio-01-05-2015-20
 if __name__ == "__main__":
 	main()
