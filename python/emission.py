@@ -47,10 +47,10 @@ class EmissionInfos:
 		#output.close()
 		
 		#logging.debug("Telechargement de l'image " + self.imageUrl)	
-		#imageFile = urllib2.urlopen(self.imageUrl)
-		#output = open(dirName + "/Folder.png",'wb')
-		#output.write(imageFile.read())
-		#output.close()
+		imageFile = urllib2.urlopen(self.imageUrl)
+		output = open(dirName + "/Folder.png",'wb')
+		output.write(imageFile.read())
+		output.close()
 
 		logging.debug("Telechargement du mp3 " + self.mp3Url)	
 		mp3Stream = urllib2.urlopen(self.mp3Url)
@@ -69,21 +69,29 @@ class EmissionAnalyzer:
 		response = urllib2.urlopen(self._url)
 		html = response.read()
 		soup = BeautifulSoup(html)
+		# ------------------
 		# Recherche du titre
-		titleTag = soup.select("div.article h1")[0]
+		# ------------------
+		titleTag = soup.select("div.article > h1")[0]
 		infos.title = titleTag.contents[0]
-		#infos.title = "NOT FOUND"
 		logging.debug(infos.title)
-		# Recherche de la datre
+		# ---------------------
+		# Recherche de la date
+		# ---------------------
 		infos.date = soup.find("span",class_="date-display-single")['content']
 		infos.date = re.findall("[0-9]{4}\-[0-9]{2}\-[0-9]{2}", infos.date)[0]
 		infos.date = re.sub('\-', '', infos.date)
 		logging.debug(infos.date)
+		# ------------------------------
 		# Recherche de l'URL de l'image
-		#infos.imageUrl = soup.find("meta",property="og:image")['content']		
-		#infos.imageUrl = soup.find("img",typeof="foaf:image")['src']		
+		# ------------------------------
+		#infos.imageUrl = soup.find("meta",property="og:image")['content']	
+		imageTag = soup.select("div.article > div.photo * img")[0]
+		infos.imageUrl = imageTag['src']
 		logging.debug(infos.imageUrl)
+		# ---------------------------
 		# Recherche de l'URL du mp3
+		# ---------------------------
 		playerUrl = soup.find("a",class_="jp-play")['href']
 		playerCompleteUrl = "http://www.francemusique.fr" + playerUrl
 		logging.debug(playerCompleteUrl)		
