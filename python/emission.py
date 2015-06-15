@@ -92,15 +92,17 @@ class EmissionAnalyzer:
 		# ---------------------------
 		# Recherche de l'URL du mp3
 		# ---------------------------
-		playerUrl = soup.find("a",class_="jp-play")['href']
-		playerCompleteUrl = "http://www.francemusique.fr" + playerUrl
-		logging.debug(playerCompleteUrl)		
-		playerResponse = urllib2.urlopen(playerCompleteUrl)
-		playerHtml = playerResponse.read()
-		playerSoup = BeautifulSoup(playerHtml)
-		infos.mp3Url = playerSoup.find("a",id="player")['href']
+		try:
+			playerUrl = soup.find("a",class_="jp-play")['href']
+			playerCompleteUrl = "http://www.francemusique.fr" + playerUrl
+			playerResponse = urllib2.urlopen(playerCompleteUrl)
+			playerHtml = playerResponse.read()
+			playerSoup = BeautifulSoup(playerHtml)
+			infos.mp3Url = playerSoup.find("a",id="player")['href']
+			infos.mp3FileName = re.split("/",infos.mp3Url)[-1]
+		except:
+			infos.mp3Url = None
 		logging.debug(infos.mp3Url)
-		infos.mp3FileName = re.split("/",infos.mp3Url)[-1]
 		logging.debug(infos.mp3FileName)
 		return infos
 
