@@ -9,7 +9,7 @@ http://cxf.apache.org/jaxrs
 http://cxf.apache.org/schemas/jaxrs.xsd">
 
 
-  <jaxrs:server id="customerService" address="/services">
+  <jaxrs:server id="customerService">
     <jaxrs:serviceBeans>
       <ref bean="customerBean" />
     </jaxrs:serviceBeans>
