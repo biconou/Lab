@@ -1,2 +1,8 @@
 /python/example.log
+/python/*.pyc
+/python/downloads
+/prog/target
+/prog/.idea
+
+
 
