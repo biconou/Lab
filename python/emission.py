@@ -27,36 +27,33 @@ class EmissionInfos:
 		dirName = "%s - %s" % (self.date, self.title)
 		dirName = unicodedata.normalize('NFKD', dirName).encode('ascii', 'ignore')
 		dirName = re.sub('[^\w\s-]', '', dirName).strip().lower()	
-				
-		if not os.path.exists(dirName):
-			logging.debug("Create directory " + dirName)
-			os.makedirs(dirName)
 		
-		#with io.open(dirName + "/donnees.json", 'w', encoding='utf8') as json_file:
-		#	json.dump(self.__dict__, json_file, ensure_ascii=False)
+		path = os.path.join("downloads",dirName)
+		if not os.path.exists(path):
+			logging.debug("Create directory " + path)
+			os.makedirs(path)
+		
+			fichierDonnees = io.open(path + "/donnees.json", mode="w", encoding="utf8")
+			fichierDonnees.write(json.dumps(self.__dict__, ensure_ascii=False))
+			fichierDonnees.close
 			
-		fichierDonnees = io.open(dirName + "/donnees.json", mode="w", encoding="utf8")
-		#fichierDonnees = open(dirName + "/donnees.json","w")
-		fichierDonnees.write(json.dumps(self.__dict__, ensure_ascii=False))
-		fichierDonnees.close
-		
-		#logging.debug("Creation du fichier texte ")	
-		#htmlEmission = urllib2.urlopen(self.emissionUrl).read()
-		#output = open(dirName + "/emission.txt",'wb')
-		#output.write(html2text.html2text(htmlEmission.decode('utf8')))
-		#output.close()
-		
-		#logging.debug("Telechargement de l'image " + self.imageUrl)	
-		imageFile = urllib2.urlopen(self.imageUrl)
-		output = open(dirName + "/Folder.png",'wb')
-		output.write(imageFile.read())
-		output.close()
+			#logging.debug("Creation du fichier texte ")	
+			#htmlEmission = urllib2.urlopen(self.emissionUrl).read()
+			#output = open(dirName + "/emission.txt",'wb')
+			#output.write(html2text.html2text(htmlEmission.decode('utf8')))
+			#output.close()
+			
+			logging.debug("Telechargement de l'image " + self.imageUrl)	
+			imageFile = urllib2.urlopen(self.imageUrl)
+			output = open(path + "/Folder.png",'wb')
+			output.write(imageFile.read())
+			output.close()
 
-		logging.debug("Telechargement du mp3 " + self.mp3Url)	
-		mp3Stream = urllib2.urlopen(self.mp3Url)
-		output = open(dirName + "/" + self.mp3FileName,'wb')
-		output.write(mp3Stream.read())
-		output.close()
+			logging.debug("Telechargement du mp3 " + self.mp3Url)	
+			mp3Stream = urllib2.urlopen(self.mp3Url)
+			output = open(path + "/" + self.mp3FileName,'wb')
+			output.write(mp3Stream.read())
+			output.close()
 
 
 class EmissionAnalyzer: 
