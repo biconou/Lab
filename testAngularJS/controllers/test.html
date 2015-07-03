@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html ng-app="testMultiCtrlApp">
+<head>
+    <title>Test multi contrôleurs</title>
+    <link href="bootstrap.css" rel="stylesheet" />
+    <link href="bootstrap-theme.css" rel="stylesheet" />
+    <script src="angular.js"></script>
+   
+    <script>
+        
+        var testMultiCtrlApp = angular.module("testMultiCtrlApp", []);
+
+        testMultiCtrlApp.controller("controleur1", ['$scope','$http',function ($scope,$http) {
+            $scope.message = "Premier message provenant du contrôleur 1";
+        }]);
+
+        testMultiCtrlApp.controller("controleur2", ['$scope','$http',function ($scope,$http) {
+            $scope.message = "Autre message qui n'a rien à voir provenant du contrôleur 2";
+        }]);
+    </script>  
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="jumbotron">
+			<h1>
+				test            
+			</h1>
+			<p>test test</p>
+		</div>
+		<div class="panel">
+			
+			<div class="well" ng-controller="controleur1">		    
+				<span>{{message}}</span>
+			</div>
+			<div class="well" ng-controller="controleur2">		    
+				<span>{{message}}</span>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
