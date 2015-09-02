@@ -8,7 +8,7 @@ from emission import EmissionAnalyzer
 
 def liste():
 	logging.debug("Debut liste")
-	urlEmissionLundisContemporaine = "http://www.francemusique.fr/emission/les-lundis-de-la-contemporaine"
+	urlEmissionLundisContemporaine = "http://www.francemusique.fr/emission/les-lundis-de-la-contemporaine/2015-2016"
 	
 	response = urllib2.urlopen(urlEmissionLundisContemporaine)
 	html = response.read()
