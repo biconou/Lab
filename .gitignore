@@ -4,6 +4,10 @@
 /prog/target
 /prog/.idea
 /prog/prog.iml
+/metrics/metrics-tests/target
+/metrics/metrics-tests/.idea
+/metrics/metrics-tests/*.iml
+
 
 
 
