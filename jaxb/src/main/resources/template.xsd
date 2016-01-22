@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <!-- XML Schema Generated from XML Document on Fri Jan 22 2016 21:48:59 GMT+0100 (Paris, Madrid) -->
+    <!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+    <xs:element name="importTemplate">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="columns">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="column" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="number" type="xs:int"></xs:attribute>
+                                    <xs:attribute name="destination" type="xs:string"></xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="lineStart" type="xs:int"></xs:attribute>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
