@@ -1,0 +1,6 @@
+<importTemplate lineStart="1">
+    <columns>
+        <column number="1" destination="TOTO"></column>
+        <column number="2" destination="TATA"></column>
+    </columns>
+</importTemplate>

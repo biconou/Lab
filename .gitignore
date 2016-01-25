@@ -7,6 +7,9 @@
 /metrics/metrics-tests/target
 /metrics/metrics-tests/.idea
 /metrics/metrics-tests/*.iml
+/jaxb/target
+/jaxb/.idea
+/jaxb/*.iml
 
 
 
