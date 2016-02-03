@@ -10,6 +10,9 @@
 /jaxb/target
 /jaxb/.idea
 /jaxb/*.iml
+/subsonicUtils/target
+/subsonicUtils/.idea
+/subsonicUtils/*.iml
 
 
 
