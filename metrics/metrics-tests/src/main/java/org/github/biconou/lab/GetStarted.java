@@ -117,7 +117,7 @@ public class GetStarted {
       .convertRatesTo(TimeUnit.SECONDS)
       .convertDurationsTo(TimeUnit.MILLISECONDS)
       .build();
-    reporter.start(1, TimeUnit.SECONDS);
+    reporter.start(1, TimeUnit.MINUTES);
 
     // Jmx reporter
     final JmxReporter jmxReporter = JmxReporter.forRegistry(metrics).build();
