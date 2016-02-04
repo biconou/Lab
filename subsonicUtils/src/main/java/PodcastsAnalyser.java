@@ -5,6 +5,11 @@ import org.hibernate.cfg.Configuration;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.ParameterExpression;
+import javax.persistence.criteria.Root;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -80,6 +85,14 @@ public class PodcastsAnalyser {
         List<PodcastChannel> liste = entityManager.createQuery("from PodcastChannel", PodcastChannel.class).getResultList();
         for (PodcastChannel channel : liste) {
             System.out.println(channel.getTitle());
+
+            TypedQuery<PodcastEpisode> q = entityManager.createQuery("SELECT x FROM PodcastEpisode x WHERE x.channelId = :xx", PodcastEpisode.class);
+            q.setParameter("xx",channel.getId());
+            List<PodcastEpisode> listeEpisodes = q.getResultList();
+
+            for (PodcastEpisode episode : listeEpisodes) {
+                System.out.println("         "+episode.getTitle());
+            }
         }
         //entityManager.getTransaction().commit();
         entityManager.close();
