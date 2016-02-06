@@ -1,6 +1,4 @@
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.util.Date;
 
@@ -12,8 +10,10 @@ public class PodcastEpisode {
 
     @Id
     private int id;
-    @Column(name = "CHANNEL_ID")
-    private int channelId;
+
+    @ManyToOne(optional=false)
+    @JoinColumn(name="CHANNEL_ID",referencedColumnName="ID")
+    private PodcastChannel channel;
     @Column
     private String url;
     @Column
@@ -41,14 +41,6 @@ public class PodcastEpisode {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getChannelId() {
-        return channelId;
-    }
-
-    public void setChannelId(int channelId) {
-        this.channelId = channelId;
     }
 
     public String getUrl() {
@@ -129,5 +121,13 @@ public class PodcastEpisode {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public PodcastChannel getChannel() {
+        return channel;
+    }
+
+    public void setChannel(PodcastChannel channel) {
+        this.channel = channel;
     }
 }

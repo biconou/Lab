@@ -1,6 +1,8 @@
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Collection;
 
 /**
  * Created by remi on 03/02/2016.
@@ -20,6 +22,9 @@ public class PodcastChannel {
     private String status;
     @Column(name = "ERROR_MESSAGE")
     private String errorMessage;
+
+    @OneToMany(mappedBy="channel",targetEntity=PodcastEpisode.class)
+    Collection<PodcastEpisode> episodes = null;
 
     public int getId() {
         return id;
@@ -67,5 +72,13 @@ public class PodcastChannel {
 
     public void setErrorMessage(String errorMessage) {
         this.errorMessage = errorMessage;
+    }
+
+    public Collection<PodcastEpisode> getEpisodes() {
+        return episodes;
+    }
+
+    public void setEpisodes(Collection<PodcastEpisode> episodes) {
+        this.episodes = episodes;
     }
 }

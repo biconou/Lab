@@ -86,13 +86,14 @@ public class PodcastsAnalyser {
         for (PodcastChannel channel : liste) {
             System.out.println(channel.getTitle());
 
-            TypedQuery<PodcastEpisode> q = entityManager.createQuery("SELECT x FROM PodcastEpisode x WHERE x.channelId = :xx", PodcastEpisode.class);
+           /* TypedQuery<PodcastEpisode> q = entityManager.createQuery("SELECT x FROM PodcastEpisode x WHERE x.channelId = :xx", PodcastEpisode.class);
             q.setParameter("xx",channel.getId());
             List<PodcastEpisode> listeEpisodes = q.getResultList();
-
-            for (PodcastEpisode episode : listeEpisodes) {
-                System.out.println("         "+episode.getTitle());
+            */
+            for (PodcastEpisode episode : channel.getEpisodes()) {
+                System.out.println("         "+episode.getPath());
             }
+
         }
         //entityManager.getTransaction().commit();
         entityManager.close();
