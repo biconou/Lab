@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script type="text/javascript" src="/static/xonomy/xonomy.js"></script>
+	<link type="text/css" rel="stylesheet" href="/static/xonomy/xonomy.css"/>
+	<script type="text/javascript">
+
+		var editor=document.getElementById("editor");				
+
+		function start() {
+			$.get( "/definitionCartographie", function( data ) {
+				var editor=document.getElementById("editor");
+				alert(data);
+				Xonomy.render(data, editor, null);
+			});
+
+		}
+	</script>
+</head>
+<body onload="start()">
+	<div id="editor"></div>
+</body>
+</html>
