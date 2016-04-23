@@ -27,7 +27,7 @@ public class GetStarted {
 
   public static void main(String args[]) {
 
-    metrics.register(PENDING_EVENTS_METRIC_NAME, new Gauge<Integer>() {
+    metrics.register(MetricRegistry.name(GetStarted.class, PENDING_EVENTS_METRIC_NAME), new Gauge<Integer>() {
       @Override
       public Integer getValue() {
         return eventQueue.size();
@@ -50,7 +50,7 @@ public class GetStarted {
       @Override
       public void run() {
 
-        Timer timer = metrics.timer(TREATMENT_TIME_METRIC_NAME);
+        Timer timer = metrics.timer(MetricRegistry.name(GetStarted.class, TREATMENT_TIME_METRIC_NAME));
 
         while (true) {
           Timer.Context tContext = null;
@@ -60,7 +60,7 @@ public class GetStarted {
             if (evt != null) {
               tContext = timer.time();
               Thread.sleep(evt.delay * 1000);
-              metrics.histogram(DELAY_STAT_METRIC_NAME).update(evt.delay);
+              metrics.histogram(MetricRegistry.name(GetStarted.class, DELAY_STAT_METRIC_NAME)).update(evt.delay);
               eventQueue.remove();
             }
           }
@@ -90,12 +90,11 @@ public class GetStarted {
           try {
             // wait 1 to 5 seconds then mark an event
             int randomTimeToWait = (int) (Math.random() * (5 - 1 + 1)) + 1;
-            System.out.println("wait " + randomTimeToWait + " seconds");
             Thread.sleep(randomTimeToWait * 1000);
 
             // Add an event to queue.
             eventQueue.add(MyEvent.randomize());
-            Meter meter = metrics.meter(EVENTS_METER_METRIC_NAME);
+            Meter meter = metrics.meter(MetricRegistry.name(GetStarted.class, EVENTS_METER_METRIC_NAME));
             meter.mark();
           }
           catch (InterruptedException e) {
@@ -117,7 +116,7 @@ public class GetStarted {
       .convertRatesTo(TimeUnit.SECONDS)
       .convertDurationsTo(TimeUnit.MILLISECONDS)
       .build();
-    reporter.start(1, TimeUnit.MINUTES);
+    reporter.start(10, TimeUnit.SECONDS);
 
     // Jmx reporter
     final JmxReporter jmxReporter = JmxReporter.forRegistry(metrics).build();

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Pour générer le shéma XSD correspondant utiliser le site http://www.freeformatter.com/xsd-generator.html -->
+<cartography>
+  <servers>
+    <server>
+      <name>swinqf31.lyon.fr.sopra</name>
+      <system>Windows 2012 R2</system>
+      <version>6.3</version>
+      <description>Serveur de l'environnement R30</description>
+      <services>
+        <apache>
+          <name>APA_R30</name>
+          <version>2.2.4</version>
+          <environment>R30</environment>
+          <description>Serveur Apache pour l'environnement R30</description>
+        </apache>
+        <tomcat>
+          <name>TOMCAT1_R30</name>
+          <port>8280</port>
+          <portAJP>8282</portAJP>
+          <portJMX>8283</portJMX>
+          <version>8</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOSR30</name>
+              <version>FW3</version>
+              <environment>R30</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>
+      </services>
+    </server>
+    <server>
+      <name>swinws01.lyon.fr.sopra</name>
+      <system>Windows 2012 R2</system>
+      <version>6.3</version>
+      <description>Serveur de web services</description>
+      <services>
+        <apache>
+          <name>APA_WS</name>
+          <version>2.2.4</version>
+          <environment>R30</environment>
+          <description>Serveur Apache pour l'environnement web services</description>
+        </apache>
+        <tomcat>
+          <name>TOMCAT_WS</name>
+          <port>8080</port>
+          <portAJP>8080</portAJP>
+          <portJMX>8080</portJMX>
+          <version>8</version>
+          <description></description>
+          <contexts>
+            <ws>
+              <name>WSIKOSP75</name>
+              <version>FW3</version>
+              <environment>R30</environment>
+              <description></description>
+            </ws>
+          </contexts>
+        </tomcat>
+      </services>
+    </server>
+  </servers>
+</cartography>
