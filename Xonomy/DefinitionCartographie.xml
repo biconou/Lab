@@ -4,22 +4,63 @@
   <servers>
     <server>
       <name>swinqf31.lyon.fr.sopra</name>
-      <system>Windows 2012 R2</system>
-      <version>6.3</version>
-      <description>Serveur de l'environnement R30</description>
+      <system>Windows</system>
+      <version>2012 R2 server</version>
+      <description>Serveur qualification FW 3.0</description>
       <services>
         <apache>
-          <name>APA_R30</name>
-          <version>2.2.4</version>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>30A</environment>
+          <description></description>
+        </apache>
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
           <environment>R30</environment>
-          <description>Serveur Apache pour l'environnement R30</description>
+          <description></description>
+        </apache>
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>T30</environment>
+          <description></description>
+        </apache>
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>MH2</environment>
+          <description></description>
+        </apache>        
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>R20</environment>
+          <description></description>
         </apache>
         <tomcat>
-          <name>TOMCAT1_R30</name>
-          <port>8280</port>
-          <portAJP>8282</portAJP>
-          <portJMX>8283</portJMX>
-          <version>8</version>
+          <name>Tomcat8sopra8080</name>
+          <port>8080</port>
+          <portAJP>8082</portAJP>
+          <portJMX>8083</portJMX>
+          <version>8.0.28</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOS30A</name>
+              <version>FW3</version>
+              <environment>30A</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>
+        <tomcat>
+          <name>Tomcat8sopra8080</name>
+          <port>8180</port>
+          <portAJP>8182</portAJP>
+          <portJMX>8183</portJMX>
+          <version>8.0.28</version>
           <description></description>
           <contexts>
             <webapp>
@@ -30,38 +71,204 @@
               <description></description>
             </webapp>
           </contexts>
-        </tomcat>
+        </tomcat>        
+        <tomcat>
+          <name>Tomcat8sopra8080</name>
+          <port>8280</port>
+          <portAJP>8282</portAJP>
+          <portJMX>8283</portJMX>
+          <version>8.0.28</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOST30</name>
+              <version>FW3</version>
+              <environment>T30</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>        
+        <tomcat>
+          <name>Tomcat8sopra8080</name>
+          <port>8380</port>
+          <portAJP>8382</portAJP>
+          <portJMX>8383</portJMX>
+          <version>8.0.28</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOSMH2</name>
+              <version>FW3</version>
+              <environment>MH2</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>          
       </services>
     </server>
     <server>
-      <name>swinws01.lyon.fr.sopra</name>
-      <system>Windows 2012 R2</system>
-      <version>6.3</version>
-      <description>Serveur de web services</description>
+      <name>swinf301.lyon.fr.sopra</name>
+      <system>Windows</system>
+      <version>2012 R2 server</version>
+      <description>Serveur FW 3.0</description>
       <services>
         <apache>
-          <name>APA_WS</name>
-          <version>2.2.4</version>
-          <environment>R30</environment>
-          <description>Serveur Apache pour l'environnement web services</description>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>20A</environment>
+          <description></description>
         </apache>
         <tomcat>
-          <name>TOMCAT_WS</name>
+          <name>Tomcat8sopra8080</name>
           <port>8080</port>
-          <portAJP>8080</portAJP>
-          <portJMX>8080</portJMX>
-          <version>8</version>
+          <portAJP>8009</portAJP>
+          <portJMX>8083</portJMX>
+          <version>8.0.28</version>
           <description></description>
           <contexts>
-            <ws>
-              <name>WSIKOSP75</name>
+            <webapp>
+              <name>IKOS20A</name>
               <version>FW3</version>
-              <environment>R30</environment>
+              <environment>20A</environment>
+              <product>IKO</product>
               <description></description>
-            </ws>
+            </webapp>
           </contexts>
-        </tomcat>
+        </tomcat>        
       </services>
     </server>
+    <server>
+      <name>swinsik04.lyon.fr.sopra</name>
+      <system>Windows</system>
+      <version>2012 R2 server</version>
+      <description>Serveur FW 3.0</description>
+      <services>
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>30D</environment>
+          <description></description>
+        </apache>
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>30I</environment>
+          <description></description>
+        </apache>        
+        <tomcat>
+          <name>Tomcat8sopra8080</name>
+          <port>8080</port>
+          <portAJP>8009</portAJP>
+          <portJMX>8083</portJMX>
+          <version>8.0.28</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOS30D</name>
+              <version>FW3</version>
+              <environment>20A</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>        
+        <tomcat>
+          <name>Tomcat8sopra8080</name>
+          <port>8280</port>
+          <portAJP>8209</portAJP>
+          <portJMX>8283</portJMX>
+          <version>8.0.28</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOS30I</name>
+              <version>FW3</version>
+              <environment>30I</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>        
+      </services>
+    </server>
+    <server>
+      <name>swinsik05.lyon.fr.sopra</name>
+      <system>Windows</system>
+      <version>2012 R2 server</version>
+      <description>Serveur FW 3.0</description>
+      <services>
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>MHS</environment>
+          <description></description>
+        </apache>
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>SVW</environment>
+          <description></description>
+        </apache>        
+        <apache>
+          <name>Apache 2.2</name>
+          <version>2.2.29</version>
+          <environment>IC3</environment>
+          <description></description>
+        </apache>
+        <tomcat>
+          <name>Tomcat8sopra8080</name>
+          <port>8080</port>
+          <portAJP>8009</portAJP>
+          <portJMX>8083</portJMX>
+          <version>8.0.28</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOSMHS</name>
+              <version>FW3</version>
+              <environment>MHS</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>        
+        <tomcat>
+          <name>Tomcat8sopra8080</name>
+          <port>8280</port>
+          <portAJP>8209</portAJP>
+          <portJMX>8283</portJMX>
+          <version>8.0.28</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOSSVW</name>
+              <version>FW3</version>
+              <environment>SVW</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>        
+        <tomcat>
+          <name>Tomcat8sopra8080</name>
+          <port>8380</port>
+          <portAJP>8309</portAJP>
+          <portJMX>8383</portJMX>
+          <version>8.0.28</version>
+          <description></description>
+          <contexts>
+            <webapp>
+              <name>IKOSIC3</name>
+              <version>FW3</version>
+              <environment>IC3</environment>
+              <product>IKO</product>
+              <description></description>
+            </webapp>
+          </contexts>
+        </tomcat>        
+      </services>
+    </server>    
   </servers>
 </cartography>
