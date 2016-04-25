@@ -13,6 +13,9 @@
 /subsonicUtils/target
 /subsonicUtils/.idea
 /subsonicUtils/*.iml
+/elasticsearch/*.iml
+/elasticsearch/.idea
+/elasticsearch/target
 
 
 

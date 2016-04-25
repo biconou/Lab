@@ -22,7 +22,7 @@ import java.util.Properties;
  */
 public class PodcastsAnalyser {
 
-    public static Connection getConnection() {
+ /*   public static Connection getConnection() {
 
         Connection conn = null;
         try {
@@ -56,7 +56,7 @@ public class PodcastsAnalyser {
             e.printStackTrace();
         }
     }
-
+*/
 
 
 
