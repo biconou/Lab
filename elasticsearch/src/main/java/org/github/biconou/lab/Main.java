@@ -17,7 +17,7 @@ public class Main {
     Client client = TransportClient.builder().build()
       .addTransportAddress(new InetSocketTransportAddress(InetAddress.getLoopbackAddress(), 9300));
 
-    String INDEX = "testindex";
+    String INDEX = "test";
 
     boolean indexExists = client.admin().indices().prepareExists(INDEX).execute().actionGet().isExists();
     if (indexExists) {
@@ -34,6 +34,16 @@ public class Main {
     IndexResponse response = client.prepareIndex(INDEX, "general", "1")
       .setSource(json)
       .get();
+
+    json = "{" +
+            "\"user\":\"cocula\"," +
+            "\"postDate\":\"2014-01-30\"," +
+            "\"message\":\"deuxième document\"" +
+            "}";
+
+    response = client.prepareIndex(INDEX, "general", "2")
+            .setSource(json)
+            .get();
 
        /* SearchResponse allHits = client.prepareSearch(INDEX)
                 .addFields("title", "category")

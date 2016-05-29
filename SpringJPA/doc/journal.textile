@@ -1,0 +1,129 @@
+
+h1. mardi 31 aoï¿½t 2010
+
+Crï¿½ation du projet ï¿½ partir de l'archetype quickstart
+
+J'ai recherchï¿½ la dï¿½pendance ï¿½ Spring sur http://www.springsource.com/repository
+
+Il y a ici un projet intï¿½ressant de framework ï¿½ base de spring,jpa et wicket.
+http://code.google.com/p/wicketcool/
+
+Cet article montre comment utiliser Spring3 et JPA2 http://paulszulc.wordpress.com/2010/01/09/jpa-2-0-and-spring-3-0-with-maven/ 
+
+Excellent article : j'ai copiï¿½ les dï¿½pendances pour avoir spring et jpa dans mon propre 
+fichier pom.xml. J'ai mis en commentaire ce qui ne me paraissait pas utile.
+
+Il se trouve que le support de JPA par Spring se trouve dans spring-orm et que 
+cette librairie apporte toute sorte de dï¿½pendances, donc pas besoin d'ï¿½numï¿½rer 
+explicitement tous les modules spring nï¿½cessaires. On a juste besoin de mettre 
+spring-core et spring-orm.
+
+J'ai transformï¿½ mon projet en projet JPA ce qui a eu pour effet de crï¿½er un fichier 
+persistence.xml.
+
+
+Prochaine ï¿½tape : Ecrire une petite classe DAO sans Spring mais en utilisant JPA. 
+
+h1. mercredi 1 septembre
+
+J'ai paramï¿½trï¿½ la base hsql dans persistence.xml. 
+-> dans l'onglet connection choisir "transaction type"="resource local".
+
+Creation d'un premier bean ContactBean. Puis classe de test.
+ 
+Plantage : j'ai du ajouter slf4j-simple
+
+Il manque un paramï¿½trage de la connexion hibernate dans persistence.xml.
+
+Guide de Hibernate tools : http://www.redhat.com/developer_studio/guides/hibernatetools/html_single/
+
+J'aimerais faire gï¿½nï¿½rer le paramï¿½trage de persistence.xml depuis une configuration dï¿½ninie dans hibernateTools.
+
+Prochaine ï¿½tape : 
+- comment paramï¿½trer slf4j pour passer en niveau debug ?
+- comment paramï¿½trer hsqldb dans persistence.xml pour que la base soit persistance sur disque ?
+- inspecter l'odre d'apparition des traces.
+- ï¿½crire un DAO ?
+
+h1. mardi 7 septembre
+
+J'ai rï¿½ussi enfin ï¿½ faire fonctionner correctement le serveur hsqldb. 
+La mï¿½thode shutdow ne fonctionne pas. Il faut envoyer un ordre sql SHUTDOWN pour arrï¿½ter 
+proprement la base.
+
+h1. mercredi 8 septembre
+
+Pour se connecter ï¿½ la base tgh.
+
+Lancer xampp
+taper mysql --user=root tgh
+
+pour voir les tables : show tables
+
+Pour rï¿½parer les tables : http://www.karakas-online.de/EN-Book/repair-corrupt-table.html
+
+Premier test avec le reverse ingenering de hibernate  tools.
+
+J'ai du vider les tables qui avaient un problï¿½me. Je n'ai pas rï¿½ussi ï¿½ les rï¿½parer.
+
+Prochaine ï¿½tape : analyser classes obtenues et commenter.
+
+h1. Samedi 11 septembre
+
+J'ai renommï¿½ la configuration de gï¿½nï¿½ration de code tgh_beans_generation est je l'ai sauvegardï¿½e dans tools.
+
+Je fais un essai de gï¿½nï¿½ration sans classe pour les composite ids.
+Bof j'ai pas bien compris.
+
+Dans la perspective Hibernate j'ai ajuoutï¿½ la vue "Data Source Explorer".
+Je l'ai appelï¿½e "BDD tgh". Je n'ai pas trouvï¿½ comment sauvegarder cette configuration.
+
+J'ai passÃ© mon workspace en UTF-8. Bon, Ã§a a fait des petits problÃ¨mes par ci par lÃ . Mais tant pis.
+Bon c'était une connerie, je ferai ça une autre fois méthodiquement avec une migration des sources. 
+
+J'ai remarqué que pour une configuration de console hibernate, on 
+pouvait faire référence à une connexion définie dans "data source explorer". 
+Par ce moyen, je peux filtrer les tables et ne choisir que achats et rens_contact.
+J'ai fait un essai de filtres mais ça n'a pas l'air de fonctionner.
+
+h1. Dimanche 12 septembre
+
+J'ai fait tourné  un petit programme avec la classe RensContact de tgh. 
+J'ai du supprimer CATALOG=TGH des annotations. Pour le moment, je ne sais pas à quoi ça sert. 
+
+J'aimerais savoir comment matérialiser la relation entre etre contact et achat. 
+
+h1. Vendredi 17 septembre
+
+J'ai créé un service AjoutAchatService.
+J'ai créé une relation one-to-many entre contact et Achats.
+
+h1. Dimanche 19 septembre
+
+J'ai installé mysql en tant que service.
+J'ai fait du ménage dans la base de données tgh : 
+- suppression de la table contact (Elle avait du être crée par le bean contact).
+- suppression de la colonne rens_contact.libTitre (alter table rens_contact drop libTitre)
+
+J'ai fait un dump de la base dans data/tgh/backup
+
+Génération des beans rensContact et Achat par JPA dans le package org.tgh.beans.JPAgenerated
+
+(Voir mail brouillon). 
+
+J'ai essayé de lancer le programme mais problème : les id id_contact dans AchatPK sont 
+de type String. Ce n'est pas ce qui est attendu. Pourquoi ?
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
