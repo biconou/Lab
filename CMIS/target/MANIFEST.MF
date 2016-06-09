@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Implementation-Title: Apache Chemistry OpenCMIS Hello World Example
+Implementation-Version: 0.13.0
+Built-By: rcocula
+X-Apache-SVN-Revision: ${buildNumber}
+Created-By: IntelliJ IDEA
+X-Compile-Source-JDK: 1.6
+Implementation-Vendor: The Apache Software Foundation
+Implementation-Vendor-Id: org.apache.chemistry.opencmis
+Build-Jdk: 1.8.0_65
+Specification-Title: Apache Chemistry OpenCMIS Hello World Example
+Specification-Version: 0.13.0
+X-Compile-Target-JDK: 1.6
+

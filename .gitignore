@@ -16,6 +16,13 @@
 /elasticsearch/*.iml
 /elasticsearch/.idea
 /elasticsearch/target
+/CMIS/*.iml
+/CMIS/.idea
+/CMIS/target
+/FreeMarker/*.iml
+/FreeMarker/.idea
+/FreeMarker/target
+
 
 
 
