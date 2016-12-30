@@ -1,1 +1,0 @@
-$wnd.biconou_vaadin_example_AppWidgetSet.runAsyncCallback2('U8(1728,1,ekd);_.wc=function Z_b(){nRb((!gRb&&(gRb=new sRb),gRb),this.b.e)};Ied(Xh)(2);\n//# sourceURL=biconou.vaadin.example.AppWidgetSet-2.js\n')

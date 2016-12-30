@@ -31,8 +31,9 @@
 /FreeMarker/target
 
 /UlisTiersIndex/target
-/vaadinClientSideExample/target
 
+/vaadinClientSideExample/target
+/vaadinClientSideExample/src/main/webapp/VAADIN/widgetsets
 
 
 
