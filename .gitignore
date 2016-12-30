@@ -1,3 +1,7 @@
+
+*.iml
+.idea
+
 /python/example.log
 /python/*.pyc
 /python/downloads
@@ -22,7 +26,11 @@
 /FreeMarker/*.iml
 /FreeMarker/.idea
 /FreeMarker/target
+/FreeMarker/*.iml
+/FreeMarker/.idea
+/FreeMarker/target
 
+/vaadinClientSideExample/target
 
 
 
