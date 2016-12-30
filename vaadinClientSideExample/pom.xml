@@ -45,6 +45,7 @@
 		</pluginRepository>
 	</pluginRepositories>
 	<dependencies>
+        <!-- TODO utile ? -->
 		<dependency>
 			<groupId>com.vaadin</groupId>
 			<artifactId>vaadin-server</artifactId>

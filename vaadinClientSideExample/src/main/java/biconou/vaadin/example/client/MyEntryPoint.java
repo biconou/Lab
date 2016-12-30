@@ -10,17 +10,23 @@ import com.vaadin.client.ui.VButton;
 
 @Theme("valo")
 public class MyEntryPoint implements EntryPoint {
-  @Override
-  public void onModuleLoad() {
-    // Create a button widget
-    VButton button = new VButton();
-    button.setText("Click me!");
-    button.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        //mywidget.setText("Hello, world!");
-      }
-    });
-    RootPanel.get().add(button);
-  }
+
+
+    @Override
+    public void onModuleLoad() {
+
+        // Create a button widget
+        final VButton button = new VButton();
+        button.setText("Click me!");
+        button.addClickHandler(new ClickHandler() {
+            @Override
+            public void onClick(ClickEvent event) {
+                button.setText("Hello");
+            }
+        });
+
+
+        RootPanel.get().add(button);
+        RootPanel.get().add(button);
+    }
 }
