@@ -70,10 +70,13 @@ public class createIndex {
     public static void main(String[] args) {
 
         try {
-            String qBailleurs = elasticsearchHelper.getQuery("bailleurs",null);
+
+            SQLQueryHelper sqlQueryHelper = new SQLQueryHelper();
+
+            String qBailleurs = sqlQueryHelper.getQuery("bailleurs",null);
             UlisDBConnectionFactory.jdbcTemplate().query(qBailleurs, new LocalRowMapper(Bailleur.class));
 
-            String qSignataires = elasticsearchHelper.getQuery("signataires",null);
+            String qSignataires = sqlQueryHelper.getQuery("signataires",null);
             UlisDBConnectionFactory.jdbcTemplate().query(qSignataires, new LocalRowMapper(Signataire.class));
 
         } catch (IOException e) {
