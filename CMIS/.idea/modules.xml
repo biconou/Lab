@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/chemistry-opencmis-hello.iml" filepath="$PROJECT_DIR$/chemistry-opencmis-hello.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cmis-test.iml" filepath="$PROJECT_DIR$/cmis-test.iml" />
     </modules>
   </component>
 </project>
