@@ -1,3 +1,6 @@
+import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.MetricRegistry;
+import com.codahale.metrics.Timer;
 import com.google.code.geocoder.AdvancedGeoCoder;
 import com.google.code.geocoder.Geocoder;
 import com.google.code.geocoder.GeocoderRequestBuilder;
@@ -13,8 +16,11 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.concurrent.TimeUnit;
 
 public class createIndex {
+
+    static final MetricRegistry metrics = new MetricRegistry();
 
     private static ElasticsearchHelper elasticsearchHelper = new ElasticsearchHelper();
 
@@ -71,13 +77,27 @@ public class createIndex {
 
         try {
 
+
             SQLQueryHelper sqlQueryHelper = new SQLQueryHelper();
 
+            Timer timer = metrics.timer("TimerBailleurs");
+            Timer.Context tContext = timer.time();
             String qBailleurs = sqlQueryHelper.getQuery("bailleurs",null);
             UlisDBConnectionFactory.jdbcTemplate().query(qBailleurs, new LocalRowMapper(Bailleur.class));
+            tContext.stop();
 
+            timer = metrics.timer("TimerSignataires");
+            tContext = timer.time();
             String qSignataires = sqlQueryHelper.getQuery("signataires",null);
             UlisDBConnectionFactory.jdbcTemplate().query(qSignataires, new LocalRowMapper(Signataire.class));
+            tContext.stop();
+
+            ConsoleReporter reporter = ConsoleReporter.forRegistry(metrics)
+                    .convertRatesTo(TimeUnit.SECONDS)
+                    .convertDurationsTo(TimeUnit.MILLISECONDS)
+                    .build();
+            reporter.report();
+
 
         } catch (IOException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

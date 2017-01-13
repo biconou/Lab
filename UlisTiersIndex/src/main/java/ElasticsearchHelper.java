@@ -243,7 +243,15 @@ public class ElasticsearchHelper {
     public <T extends Object> List<T> extractObjects(String queryName, Map<String, String> vars,
                                                                      Integer from, Integer size,
                                                                      Map<String, SortOrder> sortClause, Class<T> type) {
-        return extractObjects(queryName, vars, from, size, sortClause, type);
+
+        String jsonQuery;
+        try {
+            jsonQuery = getQuery(queryName, vars);
+        } catch (IOException | TemplateException e) {
+            throw new RuntimeException(e);
+        }
+
+        return extractObjects(jsonQuery, from, size, sortClause, type);
     }
 
 
