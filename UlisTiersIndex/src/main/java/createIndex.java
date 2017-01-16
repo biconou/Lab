@@ -1,4 +1,5 @@
 import com.codahale.metrics.ConsoleReporter;
+import com.codahale.metrics.JmxReporter;
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.Timer;
 import com.google.code.geocoder.AdvancedGeoCoder;
@@ -42,11 +43,16 @@ public class createIndex {
 
         @Override
         public T mapRow(ResultSet rs, int rowNumber) throws SQLException {
+            Timer timer = metrics.timer("TimerMapRow");
+            Timer.Context tContext = timer.time();
+
             T mapped = super.mapRow(rs, rowNumber);
 
             // Geocodate
             String adressToGeocode = mapped.getAdresse();
             if (StringUtils.isNotBlank(adressToGeocode)) {
+                Timer timerGeo = metrics.timer("TimerGeocode");
+                Timer.Context tContextGeo = timerGeo.time();
                 GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(adressToGeocode).setLanguage("fr").getGeocoderRequest();
                 try {
                     GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
@@ -59,10 +65,14 @@ public class createIndex {
                     }
                 } catch (IOException e) {
                     logger.error("Erreur lors du geocodage", e);
+                } finally {
+                    tContextGeo.stop();
                 }
             }
 
             elasticsearchHelper.indexObject(mapped,ElasticsearchHelper.ULIS_INDEX_NAME,false);
+
+            tContext.stop();
             return mapped;
         }
     }
@@ -77,6 +87,11 @@ public class createIndex {
 
         try {
 
+            JmxReporter jmxReporter = JmxReporter.forRegistry(metrics)
+                    .convertRatesTo(TimeUnit.SECONDS)
+                    .convertDurationsTo(TimeUnit.MILLISECONDS)
+                    .build();
+            jmxReporter.start();
 
             SQLQueryHelper sqlQueryHelper = new SQLQueryHelper();
 
