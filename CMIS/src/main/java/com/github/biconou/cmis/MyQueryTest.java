@@ -51,7 +51,6 @@ public class MyQueryTest {
         // user credentials
         parameters.put(SessionParameter.USER, "Administrator");
         parameters.put(SessionParameter.PASSWORD, "Administrator");
-        parameters.put(SessionParameter.PROXY_USER)
         // connection settings
         parameters.put(SessionParameter.BROWSER_URL,
                 CMIS_ENDPOINT_TEST_SERVER);

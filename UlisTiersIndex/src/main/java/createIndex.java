@@ -11,7 +11,6 @@ import com.google.code.geocoder.model.GeocoderResult;
 import freemarker.template.TemplateException;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.MultiThreadedHttpConnectionManager;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.io.IOException;
@@ -49,31 +48,37 @@ public class createIndex {
             T mapped = super.mapRow(rs, rowNumber);
 
             // Geocodate
-            String adressToGeocode = mapped.getAdresse();
-            if (StringUtils.isNotBlank(adressToGeocode)) {
-                Timer timerGeo = metrics.timer("TimerGeocode");
-                Timer.Context tContextGeo = timerGeo.time();
-                GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(adressToGeocode).setLanguage("fr").getGeocoderRequest();
-                try {
-                    GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
-                    if (geocoderResponse.getResults().size() > 0) {
-                        GeocoderResult result = geocoderResponse.getResults().get(0);
-                        mapped.setAdresseGeoPointLat(result.getGeometry().getLocation().getLat());
-                        mapped.setAdresseGeoPointLng(result.getGeometry().getLocation().getLng());
-                    } else {
-                        logger.warn("Aucun geocodage pour l'adresse : " + adressToGeocode);
-                    }
-                } catch (IOException e) {
-                    logger.error("Erreur lors du geocodage", e);
-                } finally {
-                    tContextGeo.stop();
-                }
+            /*
+            String addressToGeocode = mapped.getAdresse();
+            if (StringUtils.isNotBlank(addressToGeocode)) {
+                geocodeAddress(mapped, addressToGeocode);
             }
+            */
 
             elasticsearchHelper.indexObject(mapped,ElasticsearchHelper.ULIS_INDEX_NAME,false);
 
             tContext.stop();
             return mapped;
+        }
+
+        private void geocodeAddress(T mapped, String adressToGeocode) {
+            Timer timerGeo = metrics.timer("TimerGeocode");
+            Timer.Context tContextGeo = timerGeo.time();
+            GeocoderRequest geocoderRequest = new GeocoderRequestBuilder().setAddress(adressToGeocode).setLanguage("fr").getGeocoderRequest();
+            try {
+                GeocodeResponse geocoderResponse = geocoder.geocode(geocoderRequest);
+                if (geocoderResponse.getResults().size() > 0) {
+                    GeocoderResult result = geocoderResponse.getResults().get(0);
+                    mapped.setAdresseGeoPointLat(result.getGeometry().getLocation().getLat());
+                    mapped.setAdresseGeoPointLng(result.getGeometry().getLocation().getLng());
+                } else {
+                    logger.warn("Aucun geocodage pour l'adresse : " + adressToGeocode);
+                }
+            } catch (IOException e) {
+                logger.error("Erreur lors du geocodage", e);
+            } finally {
+                tContextGeo.stop();
+            }
         }
     }
 
