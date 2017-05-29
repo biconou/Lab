@@ -1,7 +1,6 @@
-
 *.iml
 .idea
-
+target
 /python/example.log
 /python/*.pyc
 /python/downloads
@@ -29,12 +28,6 @@
 /FreeMarker/*.iml
 /FreeMarker/.idea
 /FreeMarker/target
-
 /UlisTiersIndex/target
-
 /vaadinClientSideExample/target
 /vaadinClientSideExample/src/main/webapp/VAADIN/widgetsets
-
-
-
-
