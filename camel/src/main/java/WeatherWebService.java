@@ -1,4 +1,3 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.camel.CamelContext;
 import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.RouteBuilder;
@@ -7,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
+ * Exemple d'appel d'un web service SOAP.
  */
 public class WeatherWebService {
 
@@ -23,8 +23,8 @@ public class WeatherWebService {
         context.addRoutes(new RouteBuilder() {
             public void configure() {
                 from("direct:in")
-                .to("spring-ws:http://www.webservicex.com/globalweather.asmx?soapAction=http://www.webserviceX.NET/GetCitiesByCountry")
-                .log("${body}");
+                        .to("spring-ws:http://www.webservicex.com/globalweather.asmx?soapAction=http://www.webserviceX.NET/GetCitiesByCountry")
+                        .log("${body}");
             }
         });
         context.start();
